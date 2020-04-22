@@ -5,6 +5,7 @@ import "errors"
 type item struct {
 	value string
 	prev  *item
+	next  *item
 }
 
 type Queue struct {
@@ -18,15 +19,22 @@ func (queue *Queue) Size() int {
 }
 
 func (queue *Queue) Enqueue(value string) {
-	newItem := item{
-		value: value,
-		prev:  nil,
-	}
+
 	if queue.Size() < 1 {
+		newItem := item{
+			value: value,
+			prev:  nil,
+			next:  nil,
+		}
 		queue.top = &newItem
 		queue.bottom = queue.top
 	} else {
-		queue.bottom.prev = queue.bottom
+		newItem := item{
+			value: value,
+			prev:  queue.bottom,
+			next:  nil,
+		}
+		queue.bottom.next = &newItem
 		queue.bottom = &newItem
 	}
 	queue.size++
@@ -37,7 +45,7 @@ func (queue *Queue) Dequeue() (string, error) {
 		return "", errors.New("No more items")
 	}
 	value := queue.top.value
-	queue.top = queue.top.prev
+	queue.top = queue.top.next
 	queue.size--
 	return value, nil
 }
