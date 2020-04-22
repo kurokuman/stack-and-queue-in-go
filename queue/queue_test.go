@@ -57,8 +57,8 @@ var dequeueTests = []struct {
 	expected string
 }{
 	{
-		input:    []string{"a", "b", "c"},
-		expected: "a",
+		input:    []string{"a", "b", "c", "d"},
+		expected: "b",
 	},
 }
 
@@ -68,8 +68,9 @@ func TestDequeue(t *testing.T) {
 		for _, input := range tt.input {
 			queue.Enqueue(input)
 		}
-		pop, _ := queue.Dequeue()
-		if pop != tt.expected {
+		dequeue, _ := queue.Dequeue()
+		dequeue, _ = queue.Dequeue()
+		if dequeue != tt.expected {
 			t.Fatalf("FAIL: expected %s, got %s", tt.expected, tt.input[len(tt.input)-1])
 		}
 		t.Logf("PASS: Dequeue %q", tt.input)
