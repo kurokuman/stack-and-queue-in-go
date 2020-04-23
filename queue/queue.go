@@ -4,7 +4,6 @@ import "errors"
 
 type item struct {
 	value string
-	prev  *item
 	next  *item
 }
 
@@ -23,7 +22,6 @@ func (queue *Queue) Enqueue(value string) {
 	if queue.Size() < 1 {
 		newItem := item{
 			value: value,
-			prev:  nil,
 			next:  nil,
 		}
 		queue.top = &newItem
@@ -31,7 +29,6 @@ func (queue *Queue) Enqueue(value string) {
 	} else {
 		newItem := item{
 			value: value,
-			prev:  queue.bottom,
 			next:  nil,
 		}
 		queue.bottom.next = &newItem
