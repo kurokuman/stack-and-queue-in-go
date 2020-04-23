@@ -19,18 +19,14 @@ func (queue *Queue) Size() int {
 
 func (queue *Queue) Enqueue(value string) {
 
+	newItem := item{
+		value: value,
+		next:  nil,
+	}
 	if queue.Size() < 1 {
-		newItem := item{
-			value: value,
-			next:  nil,
-		}
 		queue.top = &newItem
 		queue.bottom = queue.top
 	} else {
-		newItem := item{
-			value: value,
-			next:  nil,
-		}
 		queue.bottom.next = &newItem
 		queue.bottom = &newItem
 	}
